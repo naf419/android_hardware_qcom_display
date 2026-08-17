@@ -2649,7 +2649,7 @@ int HWCSession::CreatePrimaryDisplay() {
     auto hwc_display = &hwc_display_[HWC_DISPLAY_PRIMARY];
     hwc2_display_t client_id = map_info_primary_.client_id;
 
-    DLOGI("Create primary display type = %d, sdm id = %d, client id = %d", info.display_type,
+    DLOGI("Create primary display type = %d, sdm id = %d, client id = %lu", info.display_type,
                                                                     info.display_id, client_id);
     if (!info.is_connected && info.display_type == kPluggable) {
       pluggable_is_primary_ = true;
@@ -2847,7 +2847,7 @@ int HWCSession::HandleConnectedDisplays(HWDisplaysInfo *hw_displays_info, bool d
         auto &hwc_display = hwc_display_[client_id];
         if (hwc_display && info.is_primary && info.display_type == kPluggable
             && info.is_connected) {
-          DLOGI("Create primary pluggable display, sdm id = %d, client id = %d",
+          DLOGI("Create primary pluggable display, sdm id = %d, client id = %lu",
                 info.display_id, client_id);
           status = hwc_display->SetState(true);
           if (status) {
@@ -2856,7 +2856,7 @@ int HWCSession::HandleConnectedDisplays(HWDisplaysInfo *hw_displays_info, bool d
           }
           is_hdr_display_[UINT32(client_id)] = HasHDRSupport(hwc_display);
           DLOGI("Created primary pluggable display successfully: sdm id = %d,"
-                "client id = %d", info.display_id, client_id);
+                "client id = %lu", info.display_id, client_id);
           map_info.disp_type = info.display_type;
           map_info.sdm_id = info.display_id;
         }
